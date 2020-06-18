@@ -16,7 +16,7 @@ function PythonMisc() {
         estilo de código. Hay muchas formas de escribir código en Python y en general en cualquier lenguaje de programación.
         Sin embargo, en general es bueno seguir ciertas convenciones, de manera que todos los integrantes de un equipo sean
         consistentes en el estilo de programar y el código sea homogéneo, lo que aumenta la "mantenibilidad" del código, y como
-        consecuencia, se tiene código de calidad, robusto, profesional y no una solución de de juguete.
+        consecuencia, se tiene código de calidad, robusto, profesional y no una solución de juguete.
             </p>
       <h2>Ejemplo de código sin estándar ni buenas convenciones</h2>
 
@@ -75,8 +75,8 @@ function PythonMisc() {
       <h4>Black Python Formatter</h4>
 
       <p>Otra debilidad que tiene el código anterior es cómo está formateado. No respeta tampoco estándares en cuanto a saltos
-      de línea, espacios, etc. Un paquete muy utilizado (profesionalmente y en proyectos de código abierto) es
-            <a target="_blank" rel="noopener noreferrer" href="https://github.com/psf/black">black</a>. Para instalar black, simplemente
+      de línea, espacios, etc. Un paquete muy utilizado (profesionalmente y en proyectos de código abierto)
+      es <a target="_blank" rel="noopener noreferrer" href="https://github.com/psf/black">black</a>. Para instalar black, simplemente
             ejecutar <code>pip install black</code>. Por ejemplo, pueden usarlo para re-formatear el código
             anterior: <code>black example.py</code></p>
 
@@ -90,7 +90,7 @@ function PythonMisc() {
       </SyntaxHighlighter>
 
       <p>El código será reformateado y quedará así:</p>
-      <SyntaxHighlighter language="shell" style={docco}>
+      <SyntaxHighlighter language="python" style={docco}>
         {
           "from sys import *\n"
           + "\n"
@@ -144,7 +144,7 @@ function PythonMisc() {
 
 
       <Row className="justify-content-md-center">
-        <Col xs={12} sm={4} md={4}>
+        <Col xs={12} sm={12} md={12}>
           <Image src={process.env.PUBLIC_URL + '/imgs/linter.png'} fluid />
         </Col>
       </Row>
@@ -153,20 +153,20 @@ function PythonMisc() {
       <a target="_blank" rel="noopener noreferrer" href="https://medium.com/@marcobelo/setting-up-python-black-on-visual-studio-code-5318eba4cd00">estas instrucciones</a></p>
 
       <p>Para documentar funciones en <code>python</code> existen varios formatos. Yo personalmente he utilizado
-      <code>restructuredText</code> y encuentro que queda bastante bien. Por ejemplo pueden mirar el
-      <a target="_blank" rel="noopener noreferrer" href="https://www.python.org/dev/peps/pep-0287/">PEP 287</a>. Para configurar
+      <code>restructuredText</code> y encuentro que queda bastante bien. Por ejemplo pueden mirar
+      el <a target="_blank" rel="noopener noreferrer" href="https://www.python.org/dev/peps/pep-0287/">PEP 287</a>. Para configurar
       <code>restructuredText</code> en <code>VSCode</code>, pueden instalar el
       plugin <a target="_blank" rel="noopener noreferrer" href="https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring">Python Docstring Generator</a> y
       configurarlo eligiendo formato <code>sphinx</code>.</p>
 
       <Row className="justify-content-md-center">
-        <Col xs={12} sm={4} md={4}>
+        <Col xs={12} sm={12} md={12}>
           <Image src={process.env.PUBLIC_URL + '/imgs/docstring.png'} fluid />
         </Col>
       </Row>
 
       <Row className="justify-content-md-center">
-        <Col xs={12} sm={4} md={4}>
+        <Col xs={12} sm={12} md={12}>
           <Image src={process.env.PUBLIC_URL + '/imgs/docstring2.png'} fluid />
         </Col>
       </Row>
