@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Setup from "./pages/lectures/Setup";
 import PythonMisc from "./pages/lectures/PythonMisc";
+import WeekOne from "./pages/lectures/WeekOne";
+
 
 export default function App() {
   return (
@@ -19,6 +21,9 @@ export default function App() {
         </Route>
         <Route path="/setup">
           <Setup />
+        </Route>
+        <Route path="/week1">
+          <WeekOne />
         </Route>
         <Route path="/">
           <Home />

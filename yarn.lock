@@ -3865,6 +3865,11 @@ domhandler@^2.3.0:
   dependencies:
     domelementtype "1"
 
+dompurify@^2.0.8:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.0.11.tgz#cd47935774230c5e478b183a572e726300b3891d"
+  integrity sha512-qVoGPjIW9IqxRij7klDQQ2j6nSe4UNWANBhZNLnsS7ScTtLb+3YdxkRY8brNTpkUiTtcXsCJO+jS0UCDfenLuA==
+
 domutils@1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/domutils/-/domutils-1.5.1.tgz#dcd8488a26f563d61079e48c9f7b7e32373682cf"
@@ -8922,6 +8927,13 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-mathjax-preview@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/react-mathjax-preview/-/react-mathjax-preview-1.2.4.tgz#e10212b303d9d1f43f3b6cafb5d60c09b1536cb7"
+  integrity sha512-rS0+P1mULjyRBapCb5GYoxg2uiV9wELN4B7xN+G4FOZFo7btrYB7Sq/6O7I9W6gZ1pR6R56oXX7vSKbz6sysvA==
+  dependencies:
+    dompurify "^2.0.8"
 
 react-overlays@^3.1.2:
   version "3.2.0"
