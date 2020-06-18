@@ -12,10 +12,15 @@ function Home() {
                 complementario, algunas recomendaciones para ayudarte a digerir mejor los contenidos del curso. También pueden pedirme
                 que agregue información en caso de que lo necesiten.
             </p>
-            <h2>Enlaces</h2>
-            <ol>
-                <Link to="/setup" className="nav-link">Configuración e iniciando con la terminal</Link>
-            </ol>
+            <h2>Material Complementario y Miscelaneos</h2>
+            <ul>
+                <li><Link to="/setup">Configuración e iniciando con la terminal</Link></li>
+                <li><Link to="/python_misc">Cómo escribir buen código Python</Link></li>
+                <li><a target="_blank" rel="noopener noreferrer" href="https://stackoverflow.com">
+                    StackOverflow (sitio para buscar información sobre programación preguntas/respuestas, etc)</a></li>
+                <li><a target="_blank" rel="noopener noreferrer" href="https://hackerrank.com">
+                    Sitio con ejercicios para practicar python (hay muchos problemas de entrevistas)</a></li>
+            </ul>
         </div>
     )
 }

@@ -5,6 +5,7 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Setup from "./pages/lectures/Setup";
+import PythonMisc from "./pages/lectures/PythonMisc";
 
 export default function App() {
   return (
@@ -12,6 +13,9 @@ export default function App() {
       <Switch>
         <Route path="/about">
           <About />
+        </Route>
+        <Route path="/python_misc">
+          <PythonMisc />
         </Route>
         <Route path="/setup">
           <Setup />
