@@ -4,7 +4,7 @@ import Nav from "./Nav";
 function withLayout(Page) {
   return () => {
     return (
-        <>
+      <>
         <header>
           {/* Fixed navbar */}
           <Nav />
@@ -13,6 +13,7 @@ function withLayout(Page) {
         <main role='main' className='flex-shrink-0'>
           <Page />
         </main>
+        <br />
         <footer className='footer mt-auto py-3 bg-dark text-white'>
           <div className='container'>&copy; Diego Palma 2020</div>
         </footer>
