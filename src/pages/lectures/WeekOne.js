@@ -14,23 +14,6 @@ function WeekOne() {
 
 
   const handleClickSol1 = () => setLoadingSol1(!showSol1);
-  const styles = {
-    container: {
-      transition: "max-height .2s ease, opacity 1s ease",
-      margin: "16px 0"
-    },
-    expanded: {
-      visibility: "visible",
-      maxHeight: 100,
-      opacity: 1
-    },
-    hidden: {
-      visibility: "hidden",
-      maxHeight: 0,
-      opacity: 0
-    }
-  };
-
 
   return (
     <div className='container'>
@@ -203,47 +186,44 @@ function WeekOne() {
       podría encontrar el valor faltante?</p>
 
       <h2>Soluciones</h2>
-      <Button variant="primary" onClick={handleClickSol1}>
-        {(showSol1) ? "Ocultar solución Ejercicio 1" : "Mostrar Solución Ejercicio 1"}
-      </Button>
-
-      <div
-        style={{
-          ...styles.container,
-          ...(showSol1 ? styles.expanded : styles.hidden)
-        }}
-
-      >
-        <p>Si usamos <code>input</code>, se debe recordar que <code>Python</code> guardará la entrada por teclado como variable de
+      <>
+        <Button variant="primary" onClick={handleClickSol1}>
+          {(showSol1) ? "Ocultar solución Ejercicio 1" : "Mostrar Solución Ejercicio 1"}
+        </Button>
+        {
+          showSol1 &&
+          <div>
+            <p>Si usamos <code>input</code>, se debe recordar que <code>Python</code> guardará la entrada por teclado como variable de
             tipo <code>string</code> (cadena de texto). Por lo tanto, se deberá transformar a <code>int</code>. Por ahora, asumiremos que
             el usuario ingresará un número entero. Luego, se puede caclular la suma, utilizando la fórmula y usamos la función <code>print</code> para
             mostrar el resultado.</p>
 
-        <p>Si su código se ve como sigue: </p>
-        <SyntaxHighlighter language="python" style={docco}>
-          {
-            "n=int(input(\"Ingrese valor de n: \"))\n"
-            + "suma=n*(n+1)/2\n"
-            + "print(f\"El valor para n = {n} es {suma}\")"
-          }
-        </SyntaxHighlighter>
+            <p>Si su código se ve como sigue: </p>
+            <SyntaxHighlighter language="python" style={docco}>
+              {
+                "n=int(input(\"Ingrese valor de n: \"))\n"
+                + "suma=n*(n+1)/2\n"
+                + "print(f\"El valor para n = {n} es {suma}\")"
+              }
+            </SyntaxHighlighter>
 
-        <p>Ruego encarecidamente que vean "<Link to="python_misc">Escribir buen código en python</Link>". Idealmente quieren correr el
+            <p>Ruego encarecidamente que vean "<Link to="python_misc">Escribir buen código en python</Link>". Idealmente quieren correr el
             formateador de código <code>black</code> y el chequeador de estándar <code>PEP8</code> <code>flake8</code>. Finalmente, el código
             se vería como sigue:</p>
 
-        <SyntaxHighlighter language="python" style={docco}>
-          {
-            "n = int(input(\"Ingrese valor de n: \"))\n"
-            + "suma = n * (n + 1) / 2\n"
-            + "print(f\"El valor para n = {n} es {suma}\")"
+            <SyntaxHighlighter language="python" style={docco}>
+              {
+                "n = int(input(\"Ingrese valor de n: \"))\n"
+                + "suma = n * (n + 1) / 2\n"
+                + "print(f\"El valor para n = {n} es {suma}\")"
 
-          }
-        </SyntaxHighlighter>
+              }
+            </SyntaxHighlighter>
 
-        <p>De esta forma, el código será más legible para mí, para ustedes, e irá acorde con estándares de código.</p>
-      </div>
-
+            <p>De esta forma, el código será más legible para mí, para ustedes, e irá acorde con estándares de código.</p>
+          </div>
+        }
+      </>
     </div>
   )
 }
