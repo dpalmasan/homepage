@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Setup from "./pages/lectures/Setup";
 import PythonMisc from "./pages/lectures/PythonMisc";
 import WeekOne from "./pages/lectures/WeekOne";
+import WeekTwo from "./pages/lectures/WeekTwo";
 import WeekOneRepaso from "./pages/lectures/WeekOneRepaso";
 
 
@@ -25,6 +26,9 @@ export default function App() {
         </Route>
         <Route path="/week1">
           <WeekOne />
+        </Route>
+        <Route path="/week2">
+          <WeekTwo />
         </Route>
         <Route path="/week1_repaso">
           <WeekOneRepaso />

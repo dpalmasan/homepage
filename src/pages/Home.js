@@ -24,6 +24,10 @@ function Home() {
                 <li><Link to="/week1">Ejercicios complementarios semana 1</Link></li>
                 <li><Link to="/week1_repaso">Ejercicios Repaso Introducción a Python</Link></li>
             </ul>
+            <h3>Semana 2</h3>
+            <ul>
+                <li><Link to="/week2">Ejercicios complementarios semana 2</Link></li>
+            </ul>
         </div>
     )
 }
