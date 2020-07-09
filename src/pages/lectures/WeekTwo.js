@@ -1,12 +1,10 @@
 import React from "react";
 import withLayout from "../../components/withLayout";
-import MathJax from 'react-mathjax-preview';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import Image from 'react-bootstrap/Image'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import SolutionButton from '../../components/SolutionButton';
 
 
 function WeekTwo() {

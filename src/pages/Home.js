@@ -28,6 +28,10 @@ function Home() {
             <ul>
                 <li><Link to="/week2">Ejercicios complementarios semana 2</Link></li>
             </ul>
+            <h3>Semana 3</h3>
+            <ul>
+                <li><Link to="/week3">Material Complementario semana 3</Link></li>
+            </ul>
         </div>
     )
 }
