@@ -3,6 +3,7 @@ import withLayout from "../../components/withLayout";
 import MathJax from 'react-mathjax-preview';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { Link } from "react-router-dom";
 
 
 function WeekThree() {
@@ -16,7 +17,19 @@ function WeekThree() {
         deberían ser suficientes para empezar a trabajar con ciencia de datos e investigar por ustedes mismos otras bibliotecas no vistas
         en el curso.</p>
 
-      <h2>Repaso de ciclos y funciones</h2>
+      <ul>
+        <li><Link to="/week3#ciclos">Repaso de ciclos y funciones</Link></li>
+        <ul>
+          <li><a href="#/week3#for">Ejemplo ciclo for</a></li>
+          <li><a href="#/week3#while">Ejemplo ciclo while</a></li>
+        </ul>
+        <li><Link to="/week3#estructuras">Estructuras de datos típicas en Python</Link></li>
+        <li><Link to="/week3#complejidad">Complejidad Asintótica</Link></li>
+        <li><Link to="/week3#funcionales">Comprensiones de Lista y Operaciones Funcionales</Link></li>
+        <li><Link to="/week3#pandas">Data Science con Python y Pandas</Link></li>
+      </ul>
+
+      <h2 id="ciclos">Repaso de ciclos y funciones</h2>
 
       <p>Como repasamos en clases, existen dos tipos de ciclos: <code>while</code> y <code>for</code>. En la práctica:</p>
 
@@ -26,6 +39,7 @@ function WeekThree() {
         <li>Un ciclo <code>while</code> se utiliza cuando el criterio de parada es una condición.</li>
       </ul>
 
+      <h3 id="for">Ejemplo ciclo for</h3>
       <p>Consideremos el problema de sumar los 100 primeros números naturales. Para ello podemos usar la función <code>range</code>. Esta función
       básicamente genera una secuencia de números (ver documentación). Para calcular la suma, además podemos usar una variable <b>acumuladora</b> que
       irá acumulando la suma a medida que se <b>itera</b> en el ciclo. Como inicialmente la suma total es 0, el acumulador se <b>inicializa</b> en valor
@@ -49,6 +63,7 @@ function WeekThree() {
       <code>suma += i</code> que es equivalente a hacer <code>suma = suma + i</code>. Al terminar el ciclo, debiese haberse calculado la suma deseada.
       Queda como ejercicio para el lector, intente implementar el código anterior utilizando un ciclo <code>while</code>.</p>
 
+      <h3 id="while">Ejemplo ciclo while</h3>
       <p>Veamos ahora un ejemplo de ciclo <code>while</code>. Para ello, y como repaso, implementaremos una función que calcule la raíz
       cuadrada de un número <code>a</code> utilizando el método de Newton-Raphson. Básicamente:</p>
 
@@ -101,7 +116,7 @@ function WeekThree() {
 
       <p>Estos son dos ejemplos que ilustran las diferencias entre usar ciclos <code>for</code> y <code>while</code>.</p>
 
-      <h2>Estructuras de datos típicas en Python</h2>
+      <h2 id="estructuras">Estructuras de datos típicas en Python</h2>
 
       <p>Una estructura de datos es básicamente una colección de valores y relaciones entre estos valores para representar datos y operar sobre
       ellos. Python implementa estructuras de datos típicas como por ejemplo: listas,  tuplas, conjuntos, pares llave-valor, entre otros.</p>
@@ -129,8 +144,26 @@ function WeekThree() {
       las tuplas se utilizan cuando no se planea modificar la colección de elementos (ej. definir una constante), o se requiere una colección inmutable
       (ej. Una "llave" en un par llave-valor).</p>
 
+      <h3>Set</h3>
 
-      <h2>Complejidad Asintótica</h2>
+      <p>Un <code>set</code> es una colección de datos, similar a una lista, con la excepción de que no puede contener elementos repetidos. Se
+      utiliza en general para tener una "memoria" para consultar y hacer más eficientes algunos procesos, como por ejemplo evitar hacer
+      cálculos repetidos. Un set se define como sigue: <code>frutas = &#123;"manzana", "pera", "piña"&#125;</code>. Por ejemplo, supongamos que
+      quisiera saber si el plátano está dentro del set, esta consulta se haría mediante: <code>"plátano" in frutas</code>, y en este caso
+      retornaría <code>False</code>. Esta operación también se puede hacer en listas, pero es menos eficiente que en sets, debido a que
+      la complejidad asintótica de buscar un elemento en una lista es mayor a la complejidad asintótica de buscar un elemento en un set. Para
+      mas detalle, referirse a la sección de complejidad asintótica.</p>
+
+      <h3>Diccionarios</h3>
+
+      <p>Esto lo veremos en la última semana del curso, pero vale la pena digerirlo de inmediato. Un diccionario es un conjunto de pares
+      clave-valor, y que son eficientes para consultar elementos (básicamente las claves están almacenadas en una estructura similar a un set).
+      Por ejemplo, supongamos que queremos implementar una bolsa de supermercado, se podría hacer algo
+      como: <code>compras = &#123; "platano": 3, "peras": 2, "manzana": 1 &#125;</code>. Luego, si quisiera consultar por cuántas manzanas
+      tiene el cliente, podría hacer algo como: <code>compras["manzana"]</code>, lo cual retornaría 1. La restricción de los diccionarios es
+      que las claves deben ser <b>inmutables</b>.</p>
+
+      <h2 id="complejidad">Complejidad Asintótica</h2>
 
       <p>Estos son temas bastante relevantes a la hora de resolver problemas reales. Lo digo por experiencia propia, muchos algoritmos, o modelos
       de machine learning o de procesamiento de datos, podrían no correr dependiendo del volumen y recursos computacionales disponibles. Y esto no
@@ -226,6 +259,188 @@ function WeekThree() {
 
       <p>Para las estructuras de datos típicas en python, y la complejidad asintótica de sus operaciones (métodos), puede revisar
       <a href="https://wiki.python.org/moin/TimeComplexity" rel="noopener noreferrer" target="_blank"> la documentación de python</a>.</p>
+
+      <h2 id="funcionales">Comprensiones de Lista y Operaciones Funcionales</h2>
+
+      <p>Este es un tópico bien <em>pythónico</em> en el sentido de que es la forma python de escribir código. Al principio se puede hacer un
+      poco complejo de entender, pero con práctica, creanme que ahorra bastante tiempo saber esta característica de python, por las siguientes
+      razones:</p>
+
+      <ul>
+        <li>Escribir código se hace más rápido y menos repetitivo</li>
+        <li>No todas las personas tienen el mismo estilo al escribir código, por lo que les ayudará a diversificar su entendimiento códigos python.</li>
+      </ul>
+
+      <h3>Comprensiones de Listas</h3>
+
+      <p>Las comprensiones de lista son una forma compacta de generar listas en python. Por ejemplo, supongamos que queremos los números entre 1 y
+      300 que sean divisibles por 3 y por 5. Existen varias formas de hacer esto, pero una forma compacta de
+      lograrlo en python sería como sigue: <code>numeros = [n for n in range(1, 301) if n % 3 == 0 and n % 5 == 0]</code>. Dicho código se puede leer
+      como <em>Quiero todos los n, que estén en el rango 1 a 300, y que sean divisibles por 3 y por 5.</em>.</p>
+
+      <h3>Operaciones Funcionales</h3>
+
+      <p>Python tiene una biblioteca de operaciones que siguen un paradigma de programación funcional. La idea de este paradigma es que agiliza el
+      prototipado, permitiendo escribir poco código que realiza operaciones compuestas. La desventaja de este paradigma, es que es un poco complicado
+      de entender al comienzo, sobre todo si hemos estado aprendiendo un paradigma procedural (que es lo que hemos estado haciendo desde las primeras
+      semanas). Las funciones que se utilizan frecuentemente son: <code>map</code>, <code>filter</code>, <code>reduce</code>.</p>
+
+      <p>La función <code>map</code>, básicamente le aplica una función a todos los elementos de una secuencia, y retorna una secuencia con
+      los retornos de la función aplicada. Veamos dos ejemplos, uno simple y uno más sofisticado. Para el caso simple, supongamos que tenemos una
+      lista de números y queremos si los números son divisibles por 3 y por 5</p>
+
+      <SyntaxHighlighter language="python" style={docco}>
+        {
+          "lista = [1, 2, 15, 4, 256, 100, 60]\n"
+          + "for result in map(lambda x: x % 3 == 0 or x % 5 == 0, lista):\n"
+          + "    print(result)\n"
+        }
+      </SyntaxHighlighter>
+
+      <SyntaxHighlighter language="shell" style={docco}>
+        {
+          "False\n"
+          + "False\n"
+          + "True\n"
+          + "False\n"
+          + "False\n"
+          + "True\n"
+          + "True\n"
+        }
+      </SyntaxHighlighter>
+
+      <p>Notar que usamos una expresión que no habíamos visto antes: <code>lambda</code>. No se asusten, lo que hace <code>lambda</code> es básicamente
+      definir una <b>función anonima</b>, es decir, una función sin nombre. La sintaxis es similar a la de las funciones y sigue
+      el siguiente patrón: <code>lambda argumentos: retorno</code>. Por lo que, el siguiente código es equivalente:</p>
+
+      <SyntaxHighlighter language="python" style={docco}>
+        {
+          "def divisible_por_5_o_3(n):\n"
+          + "  return n % 3 == 0 or n % 5 == 0\n"
+          + "\n"
+          + "\n"
+          + "lista = [1, 2, 15, 4, 256, 100, 60]\n"
+          + "for result in map(divisible_por_5_o_3, lista):\n"
+          + "    print(result)\n"
+        }
+      </SyntaxHighlighter>
+
+      <p>La ventaja de usar <code>lambda</code> es, si requiero una función que sólo utilizaré una vez, ¿para qué agregar más código definiendola
+      vía <code>def</code> si puedo definirla en la misma línea que la utilizaré? Esto permite agilizar escribir código.</p>
+
+      <p>Ahora un ejemplo sofisticado, supongamos que tenemos una lista de oraciones, y queremos contar la cantidad de palabras positivas de las
+      oraciones. Por el momento, supongamos que las palabras positivas están en un set. Podríamos aplicar la función map como sigue:</p>
+
+      <SyntaxHighlighter language="python" style={docco}>
+        {
+          "PALABRAS_POSITIVAS = {\n"
+          + "  \"beneficios\",\n"
+          + "  \"excelentes\",\n"
+          + "  \"buen\",\n"
+          + "  \"positivo\",\n"
+          + "  \"optimista\",\n"
+          + "  \"encanta\",\n"
+          + "  \"bien\",\n"
+          + "}\n"
+          + "\n"
+          + "oraciones = [\n"
+          + "    \"El producto es un asco\",\n"
+          + "    \"Los beneficios son excelentes\",\n"
+          + "    \"En el restorán tuve un muy buen servicio\",\n"
+          + "    \"Soy muy positivo y optimista y me encanta hablar bien de los demás\",\n"
+          + "]\n"
+          + "\n"
+          + "conteo = map(lambda s: sum(s.count(w) for w in PALABRAS_POSITIVAS), oraciones)\n"
+          + "for index, conteo in enumerate(conteo):\n"
+          + "    print(f\"Palabras positivas oración {index + 1}: {conteo}\")\n"
+        }
+      </SyntaxHighlighter>
+
+      <p>Lo que da como salida:</p>
+
+      <SyntaxHighlighter language="shell" style={docco}>
+        {
+          "Palabras positivas oración 1: 0\n"
+          + "Palabras positivas oración 2: 2\n"
+          + "Palabras positivas oración 3: 1\n"
+          + "Palabras positivas oración 4: 4\n"
+        }
+      </SyntaxHighlighter>
+
+      <p>La función <code>filter</code>, como el nombre lo sugiere, filtra una secuencia, en base a una función, y elimina los elementos que
+      no retornen <code>True</code> para esa función. Por ejemplo, supongamos que tenemos una lista de palabras, y queremos sólo las palabras
+      con más de 3 caractéres:</p>
+
+      <SyntaxHighlighter language="python" style={docco}>
+        {
+          "palabras = [\"el\", \"animal\", \"come\", \"las\", \"América\", \"lo\", \"pos\", \"laguna\"]\n"
+          + "for palabra in filter(lambda x: len(x) > 3, palabras):\n"
+          + "    print(palabra)\n"
+        }
+      </SyntaxHighlighter>
+
+      <SyntaxHighlighter language="shell" style={docco}>
+        {
+          "animal\n"
+          + "come\n"
+          + "América\n"
+          + "laguna\n"
+        }
+      </SyntaxHighlighter>
+
+      <p>Finalmente la función <code>reduce</code>, es la forma funcional de agregar datos. Supongamos que queremos calcular la sumatoria
+      de una lista de números. Esto podría hacerse iterando por cada elemento de la lista o secuencia, e ir acumulando los resultados de la suma.
+      Sin embargo reduce, permite implementar este patrón, de forma simple con una función que reciba dos argumentos y agregando los datos:</p>
+
+      <SyntaxHighlighter language="python" style={docco}>
+        {
+          "from functools import reduce\n"
+          + "\n"
+          + "\n"
+          + "lista = [1, 4, 9, 7, 10, 11]\n"
+          + "print(reduce(lambda x, y: x + y, lista))\n"
+        }
+      </SyntaxHighlighter>
+
+      <p>El resultado de la operación anterior es <code>42</code>. La forma en que opera reduce es la siguiente:</p>
+
+      <ul>
+        <li><code>(((((1 + 4) + 9) + 7) + 10) + 11)</code></li>
+        <li><code>((((5 + 9) + 7) + 10) + 11)</code></li>
+        <li><code>(((14 + 7) + 10) + 11)</code></li>
+        <li><code>((21 + 10) + 11)</code></li>
+        <li><code>(31 + 11)</code></li>
+        <li><code>42</code></li>
+      </ul>
+
+      <p>Claro que el poder de <code>reduce</code> no es únicamente calcular la suma de los elementos de una secuencia, si no que
+      puede realizar cualquier operación de agregado de una secuencia.</p>
+
+      <h2 id="pandas">Data Science con Python y Pandas</h2>
+
+      <p>No es que el lenguaje python esté directamente ligado con Ciencia de Datos, ni nada por el estilo. La ciencia de datos es agnóstica
+      al lenguaje, sin embargo, Python es un lenguaje simple de aprender, rápido de escribir, tiene eficiencia para la mayoría de los casos de uso
+      y mucho soporte de la comunidad. Por las razones mencionadas, es que se han desarrollado muchas bibliotecas que ayudan a resolver problemas
+      de ciencia de datos. Una de las bibliotecas más utilizadas para manipulación de datos es <code>pandas</code>. Pandas básicamente permite manejar
+      datos de forma tabular, usando como abstracción o representación los objetos de tipo <code>DataFrame</code>. Dicha abstracción, permite extraer
+      datos de diferentes fuentes y tener la misma representación sobre los datos, lo que permite fácil acceso y operación.</p>
+
+      <p>Dentro del curso trabajaremos con archivos <code>.csv</code>, pero <code>pandas</code> soporta una gran variedad de fuentes de datos
+      tales como: <code>excel</code>, datos de APIs como por ejemplo una API que envíe objetos <code>JSON</code>, diferentes motores de BBDD, etc.
+      En la práctica, es más común leer datos de BBDD, y por lo general, los que mantienen la plataforma de datos son el equipo de Ingeniería de Datos,
+      en lo que comúnmente se conoce como <em>Data Warehouse</em>. También en la industria se escuchan varios conceptos rimbombantes, como por ejemplo
+      <em>data lake</em>, pero eso sólo significa que es un "repositorio" donde hay datos en su forma "cruda" (por ejemplo un disco en la nube), aunque
+      tu propia laptop podría ser un data lake (tienes textos, bytes, archivos en múltiples formatos sin procesar).</p>
+
+      <p>Dejo a continuación un ejemplo de pandas, donde podrán revisar operaciones básicas y algunos consejos:</p>
+
+      <p>
+        <a
+          href="https://github.com/dpalmasan/homepage/blob/master/notebooks/intro_python/Ejemplo%20Pandas%20Intro%20Python.ipynb"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Ver ejemplo de pandas</a>
+      </p>
 
       <h2>Ejercicios</h2>
       <h3>Ejercicio 1</h3>
