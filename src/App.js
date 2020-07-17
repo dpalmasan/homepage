@@ -9,6 +9,7 @@ import PythonMisc from "./pages/lectures/PythonMisc";
 import WeekOne from "./pages/lectures/WeekOne";
 import WeekTwo from "./pages/lectures/WeekTwo";
 import WeekThree from "./pages/lectures/WeekThree";
+import WeekFour from "./pages/lectures/WeekFour";
 import WeekOneRepaso from "./pages/lectures/WeekOneRepaso";
 
 
@@ -50,6 +51,9 @@ export default class App extends React.Component {
           </Route>
           <Route path="/week3">
             <WeekThree />
+          </Route>
+          <Route path="/week4">
+            <WeekFour />
           </Route>
           <Route path="/week1_repaso">
             <WeekOneRepaso />

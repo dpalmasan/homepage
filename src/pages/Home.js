@@ -32,6 +32,10 @@ function Home() {
             <ul>
                 <li><Link to="/week3">Material Complementario semana 3</Link></li>
             </ul>
+            <h3>Semana 4</h3>
+            <ul>
+                <li><Link to="/week4">Material Complementario semana 4</Link></li>
+            </ul>
         </div>
     )
 }
