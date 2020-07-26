@@ -2,6 +2,51 @@ import React from "react";
 import withLayout from "../components/withLayout";
 import { Link } from "react-router-dom";
 
+
+function module1() {
+    return (
+        <>
+            <h3>Introducción a la Programación con Python</h3>
+            <h4>Semana 1: Introducción a la Programación</h4>
+            <ul>
+                <li><Link to="/setup">Configuración e iniciando con la terminal</Link></li>
+                <li><Link to="/python_misc">Cómo escribir buen código Python</Link></li>
+                <li><a target="_blank" rel="noopener noreferrer" href="https://stackoverflow.com">
+                    StackOverflow (sitio para buscar información sobre programación preguntas/respuestas, etc)</a></li>
+                <li><a target="_blank" rel="noopener noreferrer" href="https://hackerrank.com">
+                    Sitio con ejercicios para practicar python (hay muchos problemas de entrevistas)</a></li>
+                <li><Link to="/week1">Ejercicios complementarios semana 1</Link></li>
+                <li><Link to="/week1_repaso">Ejercicios Repaso Introducción a Python</Link></li>
+            </ul>
+            <h4>Semana 2: Ciclos y Métodos</h4>
+            <ul>
+                <li><Link to="/week2">Ejercicios complementarios semana 2</Link></li>
+            </ul>
+            <h4>Semana 3: Estructuras de Datos</h4>
+            <ul>
+                <li><Link to="/week3">Material Complementario semana 3</Link></li>
+            </ul>
+            <h4>Semana 4: API (web)</h4>
+            <ul>
+                <li><Link to="/week4">Material Complementario semana 4</Link></li>
+            </ul>
+        </>
+    )
+}
+
+function module2() {
+    return (
+        <>
+            <h3>Fundamentos Data Science</h3>
+            <h4>Semana 5: Estadística univariada y control de flujo</h4>
+            <ul>
+                <li><Link to="/week5">Material complementario y tips semana 5</Link></li>
+            </ul>
+        </>
+    )
+}
+
+
 function Home() {
     return (
         <div className='container'>
@@ -13,29 +58,8 @@ function Home() {
                 que agregue información en caso de que lo necesiten.
             </p>
             <h2>Material Complementario y Miscelaneos</h2>
-            <h3>Semana 1</h3>
-            <ul>
-                <li><Link to="/setup">Configuración e iniciando con la terminal</Link></li>
-                <li><Link to="/python_misc">Cómo escribir buen código Python</Link></li>
-                <li><a target="_blank" rel="noopener noreferrer" href="https://stackoverflow.com">
-                    StackOverflow (sitio para buscar información sobre programación preguntas/respuestas, etc)</a></li>
-                <li><a target="_blank" rel="noopener noreferrer" href="https://hackerrank.com">
-                    Sitio con ejercicios para practicar python (hay muchos problemas de entrevistas)</a></li>
-                <li><Link to="/week1">Ejercicios complementarios semana 1</Link></li>
-                <li><Link to="/week1_repaso">Ejercicios Repaso Introducción a Python</Link></li>
-            </ul>
-            <h3>Semana 2</h3>
-            <ul>
-                <li><Link to="/week2">Ejercicios complementarios semana 2</Link></li>
-            </ul>
-            <h3>Semana 3</h3>
-            <ul>
-                <li><Link to="/week3">Material Complementario semana 3</Link></li>
-            </ul>
-            <h3>Semana 4</h3>
-            <ul>
-                <li><Link to="/week4">Material Complementario semana 4</Link></li>
-            </ul>
+            {module1()}
+            {module2()}
         </div>
     )
 }
