@@ -42,6 +42,10 @@ function module2() {
             <ul>
                 <li><Link to="/week5">Material complementario y tips semana 5</Link></li>
             </ul>
+            <h4>Semana 6: Probabilidades y funciones</h4>
+            <ul>
+                <li><Link to="/week6">Material complementario y tips semana 6</Link></li>
+            </ul>
         </>
     )
 }
