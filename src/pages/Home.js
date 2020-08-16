@@ -50,6 +50,11 @@ function module2() {
             <ul>
                 <li><Link to="/week7">Material complementario y tips semana 7</Link></li>
             </ul>
+
+            <h4>Semana 8: Hipótesis y correlación</h4>
+            <ul>
+                <li><Link to="/week8">Material complementario y tips semana 8</Link></li>
+            </ul>
         </>
     )
 }
