@@ -55,6 +55,11 @@ function module2() {
             <ul>
                 <li><Link to="/week8">Material complementario y tips semana 8</Link></li>
             </ul>
+
+            <h4>Semana 9: Regresión</h4>
+            <ul>
+                <li><Link to="/week9">Material complementario y tips semana 9</Link></li>
+            </ul>
         </>
     )
 }
