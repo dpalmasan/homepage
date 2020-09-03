@@ -60,6 +60,11 @@ function module2() {
             <ul>
                 <li><Link to="/week9">Material complementario y tips semana 9</Link></li>
             </ul>
+
+            <h4>Semana 10: Clasificación</h4>
+            <ul>
+                <li><Link to="/week10">Material complementario y tips semana 10</Link></li>
+            </ul>
         </>
     )
 }
