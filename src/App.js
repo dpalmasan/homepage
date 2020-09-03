@@ -15,6 +15,7 @@ import WeekSix from "./pages/data_science/WeekSix";
 import WeekSeven from "./pages/data_science/WeekSeven";
 import WeekEight from "./pages/data_science/WeekEight";
 import WeekNine from "./pages/data_science/WeekNine";
+import WeekTen from "./pages/data_science/WeekTen";
 import WeekOneRepaso from "./pages/lectures/WeekOneRepaso";
 
 
@@ -74,6 +75,9 @@ export default class App extends React.Component {
           </Route>
           <Route path="/week9">
             <WeekNine />
+          </Route>
+          <Route path="/week10">
+            <WeekTen />
           </Route>
           <Route path="/week1_repaso">
             <WeekOneRepaso />
