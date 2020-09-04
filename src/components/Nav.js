@@ -23,7 +23,10 @@ function Nav() {
             <Link to="/" className="nav-link">Inicio<span className='sr-only'>(current)</span></Link>
           </li>
           <li className='nav-item'>
-          <Link to="/about" className="nav-link">Sobre mí</Link>
+            <Link to="/data_science" className="nav-link">Data Science</Link>
+          </li>
+          <li className='nav-item'>
+            <Link to="/about" className="nav-link">Sobre mí</Link>
           </li>
         </ul>
       </div>

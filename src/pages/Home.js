@@ -7,8 +7,9 @@ function Home() {
     <div className='container'>
       <h1 className='mt-5'>Homepage!</h1>
       <p className='lead'>
-        Si llegaste a este sitio web, probablemente estés en alguno de los cursos que estoy impartiendo, o buscaste material relacionado (jeje).
-        En fin, aquí pondré material que he creado para diferentes cursos que he impartido (sea en universidades, o online).
+        Mi sitio web personal. No mucho que decir por acá, quizás agregue algo en el futuro, como apuntes en IA, Ingeniería de Software o comparta
+        algún conocimiento de mi experiencia práctica. Por ahora, he subido material complementario para la carrera de Ciencia de Datos
+        (<em>Data Science</em>) en unos cursos que estoy impartiendo.
       </p>
     </div>
   )
