@@ -172,12 +172,12 @@ function WeekTen() {
 
       <SyntaxHighlighter language="shell" style={docco}>
         {
-          'array([[0.60073576],\n'
-          + '      [-0.61240553]])\n'
+          'array([[ 0.60595935],\n'
+          + '      [-0.62188192]])\n'
         }
       </SyntaxHighlighter>
 
-      <p>Sólo para verificar, haciendólo con python y <code>smf</code>:</p>
+      <p>Sólo para verificar, haciendólo con python y <code>smf</code>, observar que los coeficientes coinciden:</p>
 
       <SyntaxHighlighter language="python" style={docco}>
         {
