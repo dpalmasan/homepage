@@ -65,6 +65,11 @@ function module2() {
             <ul>
                 <li><Link to="/week10">Material complementario y tips semana 10</Link></li>
             </ul>
+
+            <h4>Semana 11: Dimensionalidad</h4>
+            <ul>
+                <li><Link to="/week11">Material complementario y tips semana 11</Link></li>
+            </ul>
         </>
     )
 }
