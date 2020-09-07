@@ -455,7 +455,7 @@ function WeekEleven() {
           + 'factor_loadings = pd.DataFrame(\n'
           + '    factorize.loadings_,\n'
           + '    index=trust_df.columns,\n'
-          + '    columns=("Factor 1", "Factor 2"))\n'
+          + '    columns=("Factor 1", "Factor 2", "Factor 3", "Factor 4"))\n'
           + 'factor_loadings'
         }
       </SyntaxHighlighter>
@@ -489,7 +489,7 @@ function WeekEleven() {
       por alta cantidad de datos perdidos, entre otras cosas.</p>
 
       
-      <p>Finalmente observamos que los dos factores explican aproximadamente un 39% de la varianza en los datos:</p>
+      <p>Finalmente observamos que los tres factores  escogidos explican aproximadamente un 31% de la varianza en los datos:</p>
 
       <SyntaxHighlighter language="python" style={docco}>
         {
@@ -511,7 +511,26 @@ function WeekEleven() {
       factor 4, tiene un valor menor que uno.</p>
 
 
+      <p>Finalmente, por completitud, si quieren transformar las observaciones a factores, tienen que usar el método <code>transform</code> como 
+      sigue:</p>
 
+      <SyntaxHighlighter language="python" style={docco}>
+        {
+          '# Nos dimos cuenta que solo son 3 factores los relevantes\n'
+          + 'factorize = fact.FactorAnalyzer(n_factors=3, rotation="varimax")\n'
+          + 'factorize.fit(trust_df)\n'
+          + 'transformed_df = pd.DataFrame(\n'
+          + '    factorize.transform(trust_df),\n'
+          + '    columns=("Factor 1", "Factor 2", "Factor 3", "Factor 4"))\n'
+          + 'transformed_df.head()\n'
+        }
+      </SyntaxHighlighter>
+
+      <Row className="justify-content-md-center">
+        <Col xs={12} sm={8} md={8}>
+          <Image src={process.env.PUBLIC_URL + '/imgs/factores_transform.png'} fluid />
+        </Col>
+      </Row>
 
       <h4>Análisis de Componentes Principales (PCA)</h4>
     
@@ -691,16 +710,496 @@ function WeekEleven() {
         </Col>
       </Row>
 
-      <p>Debe considerarse también, que usualmente se estandarizan los datos antes de aplicar PCA (por ejemplo normalizar, o llevar a una misma escala), por 
+    <p>Debe considerarse también, que usualmente se estandarizan los datos antes de aplicar PCA (por ejemplo normalizar, o llevar a una misma escala), por 
       lo tanto, cuando lo apliquen, hagan este pre-procesamiento antes. Finalmente, y recapitulando hasta ahora, PCA es un maximizador de varianza, que 
       proyecta los datos originales en las direcciones donde la varianza es máxima.</p>
 
+    <h4>Ejemplo Conjunto de Datos de dígitos manuscritos</h4>
+
+    <p>Finalmente, por completitud, haremos el ejemplo típico de analizar 
+    el <a 
+      href="https://archive.ics.uci.edu/ml/datasets/Optical+Recognition+of+Handwritten+Digits"
+      target="blank_"
+      rel="noopener noreferrer"
+    >conjunto de datos de reconocimiento de dígitos</a>, que en esencia consiste en imágenes de <code>8x8</code> donde cada imagen contiene 
+    un dígito manuscrito.</p>
+
+    <SyntaxHighlighter language="python" style={docco}>
+      {
+        'from sklearn.datasets import load_digits\n'
+        + '\n'
+        + '\n'
+        + 'digits = load_digits()\n'
+        + 'print(digits.keys())\n'
+        + 'print(digits.data[0])\n'
+        + 'print(digits.target[0])\n'
+        + 'print(digits.feature_names)\n'
+      }
+    </SyntaxHighlighter>
+
+    <p>Por ejemplo, miremos un dígito arbitrario:</p>
+
+    <SyntaxHighlighter language="python" style={docco}>
+      {
+        'import matplotlib.pyplot as plt\n'
+        + '\n'
+        + '\n'
+        + '%matplotlib inline\n'
+        + '\n'
+        + 'plt.style.use("seaborn")\n'
+        + 'plt.rcParams["figure.figsize"] = (6, 4)\n'
+        + 'plt.rcParams["figure.dpi"] = 200\n'
+        + '\n'
+        + 'plt.imshow(digits.data[1].reshape((8, 8)))\n'
+        + 'plt.title((f"Imagen de {digits.target[1]}"))\n'
+      }
+    </SyntaxHighlighter>
+
+    <Row className="justify-content-md-center">
+      <Col xs={12} sm={8} md={8}>
+        <Image src={process.env.PUBLIC_URL + '/imgs/digito.png'} fluid />
+      </Col>
+    </Row>
+
+    <p>Como los datos son de imágenes de <code>8x8</code> píxeles, básicamente cada atributo es el valor del píxel (en escala de grises), por lo tanto 
+    se tienen 64 atríbutos por registros. Dada la naturaleza del problema, <code>PCA</code> pareciera ser una buena opción para visualizar atributos 
+    similares en los dígitos (por ejemplo curvatura, simetría, etc.):</p>
+
+    <SyntaxHighlighter language="python" style={docco}>
+      {
+        'from sklearn.decomposition import PCA\n'
+        + '\n'
+        + '\n'
+        + '# Contrario a lo que dice la lectura, PCA NO llama a StandardScaler por debajo\n'
+        + '# Lo que sí hace es centrar los datos pero NO los escala\n'
+        + '# En este caso da igual, porque todos los atributos están en la misma escala\n'
+        + 'pca = PCA(n_components=2)\n'
+        + 'X_pca = pca.fit_transform(digits.data)\n'
+        + 'print(f"Dimensionalidad original: {digits.data.shape}")\n'
+        + 'print(f"Dimensionalidad después de PCA: {X_pca.shape}")\n'
+      }
+    </SyntaxHighlighter>
+
+    <p>En este caso, transformaremos a dos componentes, para hacer una visualización en 2D y dar un vistazo a si existe alguna relación en los registros:</p>
+
+    <SyntaxHighlighter language="python" style={docco}>
+      {
+        'plt.scatter(X_pca[:, 0], X_pca[:, 1],\n'
+        + '    edgecolor="none",\n'
+        + '    c=digits.target,\n'
+        + '    alpha=0.7,\n'
+        + '    cmap="Set1")\n'
+        + 'plt.colorbar()\n'
+        + 'plt.xlabel("PC 1")\n'
+        + 'plt.ylabel("PC 2")\n'
+        + 'plt.title("Dígitos proyectados a dos dimensiones")\n'
+      }
+    </SyntaxHighlighter>
+
+    <Row className="justify-content-md-center">
+      <Col xs={12} sm={8} md={8}>
+        <Image src={process.env.PUBLIC_URL + '/imgs/pc_digits.png'} fluid />
+      </Col>
+    </Row>
+
+    <p>De la figura se pueden desprender algunas relaciones interesantes. Por ejemplo, el <code>4</code> está cerca del <code>9</code>, probablemente 
+    porque tienen formas similares, lo mismo el <code>3</code> con el <code>8</code>. También vemos que en general los dígitos están agrupados en 
+    distintas porciones del espacio.</p>
+
+    <p>Para elegir la cantidad de componentes, en general se debe tener un umbral de cuánta información de los datos se quiere retener, o en términos 
+    matemáticos, cuánta varianza explicada en los datos se quiere considerar. Para ello podemos hacer el siguiente gráfico:</p>
+
+    <SyntaxHighlighter language="python" style={docco}>
+      {
+        'pca_full = PCA().fit(digits.data)\n'
+        + 'plt.bar(range(1, pca_full.n_components_ + 1), pca_full.explained_variance_ratio_,\n'
+        + '        label="Varianza por componente")\n'
+        + 'plt.step(range(1,len(pca_full.components_) + 1), np.cumsum(pca_full.explained_variance_ratio_),\n'
+        + 'color="tomato", label="Varianza acumulada")\n'
+        + 'plt.xlabel("Cantidad de Dimensiones")\n'
+        + 'plt.ylabel("Varianza")\n'
+        + 'plt.legend()\n'
+      }
+    </SyntaxHighlighter>
+
+    <Row className="justify-content-md-center">
+      <Col xs={12} sm={8} md={8}>
+        <Image src={process.env.PUBLIC_URL + '/imgs/cumulative_var.png'} fluid />
+      </Col>
+    </Row>
+
+    <p>En este caso, podemos ver que alrededor de 10 componentes debería ser suficiente para explicar gran cantidad de la varianza en los datos (entre 
+    0.7 y 0.8). Esto también se puede usar como "filtro", ya que quizás, mayores componentes estén ajustandose al ruido en los datos. Finalmente, 
+    visualicemos cómo contribuye cada componente a cada dígito:</p>
+
+    <SyntaxHighlighter language="python" style={docco}>
+      {
+        'def show(fig, grid, i, j, x, imshape, fontsize, title=None):\n'
+        + '    """\n'
+        + '    Función auxiliar para agregar gráficos a la figura.\n'
+        + '    """\n'
+        + '    ax = fig.add_subplot(grid[i, j], xticks=[], yticks=[])\n'
+        + '    ax.imshow(x.reshape(imshape), interpolation="nearest", cmap="Blues")\n'
+        + '    if title:\n'
+        + '        ax.set_title(title, fontsize=fontsize)\n'
+        + '\n'
+        + '\n'
+        + '\n'
+        + 'def plot_pca_components(x, coefs=None, mean=0, cmps=None,\n'
+        + '                        imshape=(8, 8), n_components=10, fontsize=12,\n'
+        + '                        show_mean=True):\n'
+        + '    """\n'
+        + '    Graficar componentes PCA para dataset de dígitos.\n'
+        + '    """\n'
+        + '    if coefs is None:\n'
+        + '        coefs = x\n'
+        + '\n'
+        + '    if cmps is None:\n'
+        + '        cmps = np.eye(len(coefs), len(x))\n'
+        + '\n'
+        + '    # Como datos fueron centrados en 0, para reconstruirlos en el espacio\n'
+        + '    # Original, a cada componente se le agrega el promedio\n'
+        + '    mean = np.zeros_like(x) + mean\n'
+        + '    \n'
+        + '    # Ajustar ancho y alto de figura\n'
+        + '    fig = plt.figure(figsize=(1.2 * (5 + n_components), 1.2 * 2))\n'
+        + '    \n'
+        + '    # Crear distribución de figuras dentro del gráfico\n'
+        + '    grid = plt.GridSpec(2, 4 + int(show_mean) + n_components, hspace=0.3)\n'
+        + '\n'
+        + '    # Se grafica en las dos primeras filas y dos primeras columnas del plot\n'
+        + '    show(fig, grid, slice(2), slice(2), x, imshape, fontsize, "Original")\n'
+        + '    approx = mean\n'
+        + '    counter = 2\n'
+        + '    if show_mean:\n'
+        + '        show(fig, grid, 0, 2, np.zeros_like(x) + mean, imshape, fontsize, r"$\\mu$")\n'
+        + '        show(fig, grid, 1, 2, approx, imshape, fontsize, r"$1 \\cdot \\mu$")\n'
+        + '        counter += 1\n'
+        + '\n'
+        + '    for i in range(n_components):\n'
+        + '        # Reconstruir imagen considerando i + 1 componentes componentes\n'
+        + '        approx = approx + coefs[i] * cmps[i]\n'
+        + '        show(fig, grid, 0, i + counter, cmps[i], imshape,\n'
+        + '            fontsize, r"$c_{0}$".format(i + 1))\n'
+        + '        show(fig, grid, 1, i + counter, approx, imshape,\n'
+        + '            fontsize, r"$ {0:.2f} \\cdot c_{1}$".format(coefs[i], i + 1))\n'
+        + '        if show_mean or i > 0:\n'
+        + '            plt.gca().text(0, 1.05, "$+$", ha="right", va="bottom",\n'
+        + '                          transform=plt.gca().transAxes, fontsize=fontsize)\n'
+        + '\n'
+        + '    show(fig, grid, slice(2), slice(-2, None), approx, imshape, fontsize, "Aproximación")\n'
+        + '\n'
+        + '\n'
+        + 'pca_10 = PCA(n_components=10).fit(digits.data)\n'
+        + 'X_pca10 = pca_10.fit_transform(digits.data)\n'
+        + 'plot_pca_components(digits.data[6], X_pca10[6], pca_10.mean_, pca_10.components_)\n'
+      }
+    </SyntaxHighlighter>
+
+    <Row className="justify-content-md-center">
+      <Col xs={12} sm={8} md={8}>
+        <Image src={process.env.PUBLIC_URL + '/imgs/components_digits.png'} fluid />
+      </Col>
+    </Row>
+
+    <h3>Agrupación</h3>
+
+    <p>Existen diversos escenarios en los cuales nos gustaría agrupar los datos o encontrar grupos de datos, pues ello nos permitiría encontrar 
+    información relevante acerca de la población de datos de interés. Algunos ejemplos:</p>
+    
+    <ol>
+      <li>Segmentación de clientes.</li>
+      <li>Sistemas de recomendación.</li>
+      <li>Categorización de diversos grupos.</li>
+      <li>Segmentación de Imágenes.</li>
+      <li>Entre otros.</li>
+    </ol>
+
+    <p>Existen diversos métodos para agrupar datos, nosotros veremos uno bastante simple, que aún a pesar de su simpleza, se utiliza en la prácticas. El 
+    algorimo que veremos es conocido como <b>K-means</b>.</p>
+
+    <h4>Clústering K-Means</h4>
+
+    <p>La técnica de clústering consiste en dividir los datos en diferentes grupos, donde los registros en cada grupo son similares entre sí. Un objetivo 
+    del clústering es encontrar grupos interesantes de datos. Estos grupos pueden ser utilizados directamente, analizados en profunidad, o ser usados 
+    como atributos en un algoritmo de clasificación o de regresión.</p>
+
+    <p>El algoritmo <em>K-means</em> divide los datos en <code>K</code> clústers mediante la minimización de la suma de las distancias cuadráticas de cada 
+    registro al centro de su clúster asignado. En general la serie de pasos a seguir es la siguiente:</p>
+
+    <ol>
+      <li>Comenzar con <code>K</code> centros aleatorios.</li>
+      <li>Asignar cada registro a un clúster en base a su distancia hacia el centro. Se asigna al clúster cuya distancia sea la mínima respecto al centro.</li>
+      <li>Luego, calcular el "centro de masa" de cada clúster (recalcular centros)</li>
+      <li>Volver al paso 2, y repetir hasta satisfacer un criterio de detención (por ejemplo que asignación no cambie entre iteraciones).</li>
+    </ol>
+
+    <SyntaxHighlighter language="python" style={docco}>
+        {
+          'def kmeans_clustering(X, clusters=5, maxit=100):\n'
+          + '    """Calcula clústers usando K-means.\n'
+          + '    \n'
+          + '    Este código lo hice cuando era estudiante así que está feo, me\n'
+          + '    disculpo por eso.\n'
+          + '\n'
+          + '    :param X: Conjunto de datos\n'
+          + '    :type X: np.array\n'
+          + '    :param K: Cantidad de clústers, defaults to 5\n'
+          + '    :type K: int, optional\n'
+          + '    :param maxit: Cantidad máxima de iteraciones, defaults to 10\n'
+          + '    :type maxit: int, optional\n'
+          + '    :return: (cluster_assign, centroides, iteraciones)\n'
+          + '    :rtype: tuple(np.array, np.array, int)\n'
+          + '    """\n'
+          + '    # Sample Size\n'
+          + '    N = X.shape[0]\n'
+          + '\n'
+          + '    # Inicializar vector de clústers\n'
+          + '    c = np.zeros(N)\n'
+          + '    \n'
+          + '    # Inicializar centroides, se escogen al azar datos del conjunto de datos\n'
+          + '    mu = X[np.random.choice(N, clusters, replace=False), :]\n'
+          + '\n'
+          + '    # Asignar datos a cada clúster\n'
+          + '    for i in range(N):\n'
+          + '        kmin = 1\n'
+          + '        min_dist = float("Inf")\n'
+          + '        for k in range(clusters):\n'
+          + '            dist = np.linalg.norm(X[i, :] - mu[k, :])\n'
+          + '            if dist < min_dist:\n'
+          + '                min_dist = dist\n'
+          + '                kmin = k\n'
+          + '        c[i] = kmin + 1\n'
+          + '\n'
+          + '\n'
+          + '    c_new = np.zeros(N)\n'
+          + '    it = 1\n'
+          + '\n'
+          + '    # Iterar hasta máximo de iteraciones o hasta que no haya cambios\n'
+          + '    # en la asignación de clústers\n'
+          + '    while it <= maxit and not all(c == c_new):\n'
+          + '        c = np.copy(c_new)\n'
+          + '        for i in range(N):\n'
+          + '            kmin = 1\n'
+          + '            min_dist = float("Inf")\n'
+          + '            for k in range(clusters):\n'
+          + '                dist = np.linalg.norm(X[i, :] - mu[k, :])\n'
+          + '                if dist < min_dist:\n'
+          + '                    min_dist = dist\n'
+          + '                    kmin = k\n'
+          + '\n'
+          + '            c_new[i] = kmin + 1\n'
+          + '\n'
+          + '        # Actualizar centroides a "Centro de Masa"\n'
+          + '        for k in range(1, clusters + 1):\n'
+          + '            Xk = X[c_new == k, :]\n'
+          + '            mu[k - 1] =  np.sum(Xk, axis=0) / Xk.shape[0]\n'
+          + '\n'
+          + '    return (c, mu, it)\n'
+        }
+    </SyntaxHighlighter>
+
+    <p>Probemos con el mítico conjunto de 
+    datos <a href="https://archive.ics.uci.edu/ml/datasets/iris" rel="noopener noreferrer" target="_blank">iris</a>. Este conjunto de datos 
+    básicamente consiste en muestras de distintas plantas iris, donde los atributos medidos son básicamente longitud y ancho de los sépalos y pétalos:</p>
+
+    <SyntaxHighlighter language="python" style={docco}>
+        {
+          'import matplotlib.pyplot as plt\n'
+          + 'from sklearn.datasets import load_iris\n'
+          + '\n'
+          + '\n'
+          + '%matplotlib inline\n'
+          + '\n'
+          + 'plt.style.use("seaborn")\n'
+          + 'plt.rcParams["figure.figsize"] = (6, 4)\n'
+          + 'plt.rcParams["figure.dpi"] = 200\n'
+          + '\n'
+          + 'iris_data = load_iris()\n'
+          + 'plt.scatter(iris_data.data[:, 0], iris_data.data[:, 2], edgecolor="none",\n'
+          + '        alpha=0.7, c="k")\n'
+          + 'plt.xlabel(iris_data.feature_names[0])\n'
+          + 'plt.ylabel(iris_data.feature_names[2])\n'
+        }
+    </SyntaxHighlighter>
+    
+    <Row className="justify-content-md-center">
+      <Col xs={12} sm={8} md={8}>
+        <Image src={process.env.PUBLIC_URL + '/imgs/iris_data_unlabeled.png'} fluid />
+      </Col>
+    </Row>
+
+    <p>Si aplicaramos el algoritmo descrito con <code>K = 3</code>, ocurriría lo siguiente:</p>
+
+    <Row className="justify-content-md-center">
+      <Col xs={12} sm={8} md={8}>
+        <Image src={process.env.PUBLIC_URL + '/imgs/kmeans.gif'} fluid />
+      </Col>
+    </Row>
+
+    <p>Ahora intentemos darle una interpretación a cada clúster. Consideremos las clases de plantas iris en el conjunto de datos. Para obtener 
+    los clústers, utilizaremos la implementación de <code>sklearn</code>:</p>
+
+    <SyntaxHighlighter language="python" style={docco}>
+        {
+          'from sklearn.cluster import KMeans\n'
+          + '\n'
+          + '\n'
+          + '# Configuramos 3 clústers, para seguir el ejemplo\n'
+          + 'kmeans = KMeans(n_clusters=3, random_state=0).fit(iris_data.data[:, (0, 2)])\n'
+          + '\n'
+          + 'c1 = kmeans.labels_ == 0\n'
+          + 'c2 = kmeans.labels_ == 1\n'
+          + 'c3 = kmeans.labels_ == 2\n'
+          + '\n'
+          + 'setosa = iris_data.target == 0\n'
+          + 'versicolor = iris_data.target == 1\n'
+          + 'virginica = iris_data.target == 2\n'
+          + '\n'
+          + 'plt.subplot(121)\n'
+          + 'plt.scatter(iris_data.data[setosa, 0], iris_data.data[setosa, 2], edgecolor="none",\n'
+          + '            alpha=0.7, c="r")\n'
+          + '\n'
+          + 'plt.scatter(iris_data.data[versicolor, 0], iris_data.data[versicolor, 2], edgecolor="none",\n'
+          + '            alpha=0.7, c="g")\n'
+          + '\n'
+          + 'plt.scatter(iris_data.data[virginica, 0], iris_data.data[virginica, 2], edgecolor="none",\n'
+          + '            alpha=0.7, c="b")\n'
+          + 'plt.legend(iris_data.target_names)\n'
+          + 'plt.xlabel(iris_data.feature_names[0])\n'
+          + 'plt.ylabel(iris_data.feature_names[2])\n'
+          + '\n'
+          + 'plt.subplot(122)\n'
+          + 'plt.scatter(iris_data.data[c1, 0], iris_data.data[c1, 2], edgecolor="none",\n'
+          + '            alpha=0.7, c="m")\n'
+          + '\n'
+          + 'plt.scatter(iris_data.data[c2, 0], iris_data.data[c2, 2], edgecolor="none",\n'
+          + '            alpha=0.7, c="c")\n'
+          + '\n'
+          + 'plt.scatter(iris_data.data[c3, 0], iris_data.data[c3, 2], edgecolor="none",\n'
+          + '            alpha=0.7, c="y")\n'
+          + 'plt.legend(("clúster 1", "clúster 2", "clúster 3"))\n'
+          + 'plt.xlabel(iris_data.feature_names[0])\n'
+          + 'plt.ylabel(iris_data.feature_names[2])\n'
+        }
+    </SyntaxHighlighter>
+
+    <Row className="justify-content-md-center">
+      <Col xs={12} sm={8} md={8}>
+        <Image src={process.env.PUBLIC_URL + '/imgs/clusters_int.png'} fluid />
+      </Col>
+    </Row>
+
+    <p>En este caso el clúster 1 se puede interpretar como las plantas de clase <code>setosa</code>, el clúster 2 como plantas de clase 
+    <code>virginica</code> y el clúster 3 como plantas de clase <code>versicolor</code>.</p>
+
+    <p>Observación: En este caso no lo hicimos, ya que los atributos se encontraban en escalas similares, pero, por lo general, al trabajar con 
+    clústering, se prefiere escalar los datos, para que no haya un atributo que tenga prioridad sobre otros. Pregunta para pensar ¿Qué pasa cuando 
+    consideramos dimensionalidades altas (o a medida que aumentamos la dimensionalidad)?</p>
+
+    <p>Otro problema que vemos es que el valor <code>K</code> de la cantidad de clústers es una entrada al algoritmo. Existen métodos para escoger 
+    la cantidad de clústers, algunas veces funcionan otras no. Existen otras formas estadísticas también para encontrar la cantidad de clústers, sin 
+    embargo, siempre hay que tener en cuenta el contexto <em>¿mejor considerando qué?</em>. Una forma de encontrar la cantidad de clústers es utilizando 
+    el <em>método del codo</em>, en el cual corremos varias veces el algoritmo variando la cantidad de clústers y vemos como varía la <b>inercia</b> de los 
+    clústers (básicamente la suma cuadrática de las distancias de cada centroide a cada registro que pertenece al clúster). Escogemos la cantidad de clústers 
+    hasta que la variación en la inercia sea casi despreciable (en el gráfico se ve como un codo). Probemos esto para el ejemplo:</p>
+
+    <SyntaxHighlighter language="python" style={docco}>
+        {
+          'N = 10\n'
+          + 'inertia = np.zeros(N)\n'
+          + 'n_clusters = np.linspace(1, 10, num=10, dtype=int)\n'
+          + 'for i, clusters in enumerate(n_clusters):\n'
+          + '    inertia[i] = KMeans(\n'
+          + '        n_clusters=clusters,\n'
+          + '        random_state=1234).fit(iris_data.data[:, (0, 2)]).inertia_\n'
+          + '\n'
+          + 'plt.plot(n_clusters, inertia, "o-", color="tomato")\n'
+          + 'plt.xlabel("Cantidad de clusters")\n'
+          + 'plt.ylabel("Inercia")\n'
+          + 'plt.title("Elbow graph")\n'
+          + 'plt.axvline(3)\n'
+        }
+    </SyntaxHighlighter>
+
+    <Row className="justify-content-md-center">
+      <Col xs={12} sm={8} md={8}>
+        <Image src={process.env.PUBLIC_URL + '/imgs/elbow_graph.png'} fluid />
+      </Col>
+    </Row>
+
+    <p>Para este caso particular, podemos observar que <code>K = 3</code> es un buen valor para la cantidad de clústers.</p>
+
+    <p>Existen otros algoritmos que no requieren conocer la cantidad de clústers apriori (ejemplo: <code>DBScan</code>).</p>
+
+    <h4>Ejemplo de compresión de imágenes</h4>
+
+    <p>Como último ejemplo de <code>Kmeans</code>, utilicémoslo para comprimir una imagen. Lo que haremos será hacer clústering, y generar 
+    super-píxeles, que serán grupos de pixeles, donde su valor de color será el centroide del clúster. Para el ejemplo, comprimiremos la imagen 
+    para que utilice 30 colores, pero ahí pueden ir jugando, teniendo la intuición de que reducir la cantidad de colores, reducirá la calidad 
+    de la compresión:</p>
+
+    <SyntaxHighlighter language="python" style={docco}>
+        {
+          'import numpy as np\n'
+          + '\n'
+          + '\n'
+          + 'img = plt.imread("semana7/oso.jpg")\n'
+          + 'X = img.reshape(img.shape[0] * img.shape[1], img.shape[2])\n'
+          + '\n'
+          + 'kmeans = KMeans(n_clusters=30)\n'
+          + 'kmeans.fit(X)\n'
+          + '# Usar centroides para comprimir imagen\n'
+          + 'X_compressed = kmeans.cluster_centers_[kmeans.labels_]\n'
+          + 'X_compressed = np.clip(X_compressed.astype("uint8"), 0, 255)\n'
+          + '\n'
+          + '# Re-escalar a dimensiones de imagen original\n'
+          + 'X_compressed = X_compressed.reshape(img.shape[0], img.shape[1], img.shape[2])\n'
+          + '\n'
+          + 'fig, ax = plt.subplots(1, 2, figsize = (12, 8))\n'
+          + 'ax[0].imshow(img)\n'
+          + 'ax[0].set_title("Imágen original")\n'
+          + 'ax[0].axis("off")\n'
+          + 'ax[1].imshow(X_compressed)\n'
+          + 'ax[1].set_title("Imagen comprimida con 30 colores")\n'
+          + 'ax[1].axis("off")\n'
+        }
+    </SyntaxHighlighter>
+
+    <Row className="justify-content-md-center">
+      <Col xs={12} sm={8} md={8}>
+        <Image src={process.env.PUBLIC_URL + '/imgs/oso_compresion.png'} fluid />
+      </Col>
+    </Row>
+
+    <p>Supongamos que reducimos la cantidad de clústers a 10:</p>
+
+    <Row className="justify-content-md-center">
+      <Col xs={12} sm={8} md={8}>
+        <Image src={process.env.PUBLIC_URL + '/imgs/oso_compresion2.png'} fluid />
+      </Col>
+    </Row>
+
+    <p>Más diversión, cambiemos la cantidad de clústers a 5:</p>
+
+    <Row className="justify-content-md-center">
+      <Col xs={12} sm={8} md={8}>
+        <Image src={process.env.PUBLIC_URL + '/imgs/oso_compresion3.png'} fluid />
+      </Col>
+    </Row>
 
 
+    <h3>Conclusiones</h3>
 
-
-
-
+      <ul>
+        <li>Se introdujo el concepto de aprendizaje "no supervisado" y algunos ejemplos como reducción dimensional y agrupamiento.</li>
+        <li>Se habló de los problemas que pueden surgir cuando se aumenta la dimensionalidad y se habló sobre la maldición de la dimensionalidad, donde 
+        se dieron algunas intuiciones.</li>
+        <li>Se revisaron técnicas típicas de reducción dimensional tales como análisis factorial y análisis de componentes principales y se mostraron 
+        ejemplos prácticos.</li>
+        <li>Se introdujo un ejemplo de agrupamiento (clústering), se explicó didácticamente en qué consiste el algoritmo <code>KMeans</code> y se 
+        mostró un ejemplo práctico de compresión de imágenes.</li>
+      </ul>
     </div>
   )
 }
